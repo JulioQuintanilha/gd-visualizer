@@ -24,7 +24,13 @@ O público-alvo são estudantes de exatas e de computação que querem entender 
 ---
 
 ## 🚧 Status
-Projeto em desenvolvimento. Próximas etapas: funções de teste, núcleo de cálculo (gradiente) e otimizadores.
+Projeto em desenvolvimento.
+
+- [x] Estrutura do repositório
+- [x] Funções de teste (`src/functions.py`)
+- [ ] Núcleo de cálculo: gradiente por diferença central (`src/calculus.py`)
+- [ ] Otimizadores: Gradient Descent e Momentum
+- [ ] Interface interativa (`src/app.py`)
 
 ---
 
