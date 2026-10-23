@@ -3,7 +3,7 @@
 ## 🏫 Informações Institucionais
 * **Instituição:** Fundação Universidade Federal de Rondônia (UNIR)
 * **Curso:** Bacharelado em Ciência da Computação
-* **Disciplina:** Cálculo III (DIN00018), com foco extensionista
+* **Disciplina:** Cálculo III (DIN00024)
 * **Professor:** Prof. Esp. Rodrigo Duarte de Oliveira Tolêdo
 * **Projeto de Extensão:** "Aplicação do Cálculo como Ferramenta Computacional" / Mostra "Matemática em Código"
 * **Período:** 2º Semestre / 2026
