@@ -29,7 +29,7 @@ Projeto em desenvolvimento.
 - [x] Estrutura do repositório
 - [x] Funções de teste (`src/functions.py`)
 - [x] Núcleo de cálculo: gradiente por diferença central (`src/calculus.py`)
-- [ ] Otimizadores: Gradient Descent e Momentum
+- [x] Otimizadores: Gradient Descent e Momentum
 - [ ] Interface interativa (`src/app.py`)
 
 ---
