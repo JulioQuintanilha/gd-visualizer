@@ -4,6 +4,7 @@
 * **Instituição:** Fundação Universidade Federal de Rondônia (UNIR)
 * **Curso:** Bacharelado em Ciência da Computação
 * **Disciplina:** Cálculo III (DIN00024)
+* **Disciplina:** Cálculo III (DIN00024)
 * **Professor:** Prof. Esp. Rodrigo Duarte de Oliveira Tolêdo
 * **Projeto de Extensão:** "Aplicação do Cálculo como Ferramenta Computacional" / Mostra "Matemática em Código"
 * **Período:** 2º Semestre / 2026
@@ -15,6 +16,7 @@
 ---
 
 ## 🔍 Visão Geral do Projeto
+Redes neurais aprendem ajustando seus parâmetros para diminuir uma função de erro, e o algoritmo mais usado para isso é o **Gradient Descent**. A cada passo, ele calcula as derivadas parciais do erro, monta o vetor gradiente e anda no sentido contrário, que é a direção em que o erro cai mais rápido. Derivadas parciais e vetor gradiente são conteúdo de Cálculo III.
 Redes neurais aprendem ajustando seus parâmetros para diminuir uma função de erro, e o algoritmo mais usado para isso é o **Gradient Descent**. A cada passo, ele calcula as derivadas parciais do erro, monta o vetor gradiente e anda no sentido contrário, que é a direção em que o erro cai mais rápido. Derivadas parciais e vetor gradiente são conteúdo de Cálculo III.
 
 Este projeto é uma ferramenta interativa e de código aberto que mostra esse processo em funções de duas variáveis, $f(x, y)$, nas quais é possível enxergar a superfície inteira. O usuário escolhe a função, o otimizador, o ponto inicial e o *learning rate*, e acompanha a trajetória do algoritmo sobre as curvas de nível, a curva de convergência e o ponto onde ele parou.
@@ -114,6 +116,19 @@ pytest
 
 ---
 
+## 📈 Exemplos de Uso e Resultados
+
+*(Em desenvolvimento.)*
+
+---
+
+## 💡 Conclusão e Aprendizados
+
+*(Em desenvolvimento.)*
+
+---
+
+## 🗺️ Roadmap
 ## 📈 Exemplos de Uso e Resultados
 
 *(Em desenvolvimento.)*
