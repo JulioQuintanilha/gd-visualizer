@@ -50,7 +50,11 @@ O **Momentum** acumula uma velocidade $\mathbf{v}$, que reduz o zigue-zague em v
 
 $$\mathbf{v}_{k+1} = \beta\,\mathbf{v}_k + \nabla f(\mathbf{x}_k), \qquad \mathbf{x}_{k+1} = \mathbf{x}_k - \eta\,\mathbf{v}_{k+1}$$
 
-Com $\beta = 0$ o Momentum vira o Gradient Descent puro, por isso os dois usam a mesma função no código (`descida`). O algoritmo para quando $\|\nabla f\| < 10^{-6}$ ou quando atinge o número máximo de iterações.
+Com $\beta = 0$ o Momentum vira o Gradient Descent puro, por isso os dois usam a mesma função no código (`descida`). O algoritmo para por um de três motivos, que a interface mostra ao usuário:
+
+* **convergiu:** $\|\nabla f\| < 10^{-6}$;
+* **limite de iterações:** atingiu o máximo escolhido;
+* **divergiu:** $|x|$ ou $|y|$ passou de $10^6$. Sem esse teste, com $x$ muito grande o computador arredonda $x + h$ para $x$, o gradiente numérico dá zero e o algoritmo pareceria ter convergido.
 
 ### 🔒 O que é implementado pela equipe
 Derivadas parciais, gradiente e otimizadores estão em `src/calculus.py`, escritos pela equipe. O projeto não usa bibliotecas de otimização (SciPy, PyTorch, TensorFlow). NumPy serve só como estrutura de vetores, e Matplotlib e Streamlit cuidam da visualização.

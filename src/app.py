@@ -20,14 +20,13 @@ with st.sidebar:
     st.caption(fn["descricao"])
     nome = st.selectbox("Otimizador", list(OTIMIZADORES))
     xmin, xmax, ymin, ymax = fn["dominio"]
-    x0 = st.slider("x inicial", float(xmin), float(xmax), xmin + 0.25 * (xmax - xmin), 0.1)
-    y0 = st.slider("y inicial", float(ymin), float(ymax), ymax - 0.25 * (ymax - ymin), 0.1)
-    lr = st.select_slider("Learning rate (η)", [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1], value=0.001)
-    n = st.slider("Máx. iterações", 10, 3000, 500, 10)
+    x0 = st.slider("x inicial", float(xmin), float(xmax), float(fn["p0"][0]), 0.1)
+    y0 = st.slider("y inicial", float(ymin), float(ymax), float(fn["p0"][1]), 0.1)
+    lr = st.select_slider("Learning rate (η)", [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1], value=fn["lr"])
+    n = st.slider("Máx. iterações", 10, 5000, 3000, 10)
 
 f = fn["f"]
-c = OTIMIZADORES[nome](f, (x0, y0), lr, n)
-c = c[np.all(np.isfinite(c), axis=1)]  # corta se divergiu
+c, motivo = OTIMIZADORES[nome](f, (x0, y0), lr, n)
 
 col1, col2 = st.columns([3, 2])
 
@@ -56,6 +55,7 @@ with col2:
     ax2.grid(alpha=0.2)
     st.pyplot(fig2)
 
+    (st.success if motivo == "convergiu" else st.warning)(f"Parada: {motivo}")
     st.metric("Iterações", len(c) - 1)
     st.metric("Ponto final", f"({c[-1, 0]:.4f}, {c[-1, 1]:.4f})")
     st.metric("f final", f"{f(*c[-1]):.2e}")

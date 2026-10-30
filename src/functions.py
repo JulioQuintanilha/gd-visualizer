@@ -17,27 +17,32 @@ def sela(x, y):
     return x**2 - y**2
 
 
-# nome -> f, fórmula (LaTeX), domínio (xmin, xmax, ymin, ymax), mínimos conhecidos, descrição
+# nome -> f, fórmula (LaTeX), domínio (xmin, xmax, ymin, ymax), mínimos conhecidos, descrição,
+# ponto inicial e learning rate padrão (escolhidos para a interface já abrir mostrando algo útil)
 FUNCOES = {
     "Paraboloide": dict(
         f=paraboloide, formula=r"f(x,y) = x^2 + 3y^2", dominio=(-4, 4, -4, 4),
         minimos=[(0, 0)],
-        descricao="Convexa, um único mínimo. Caso ideal: todo método converge.",
+        descricao="Convexa, um único mínimo. O caso mais fácil, mas a velocidade depende do learning rate.",
+        p0=(-2, 2), lr=0.05,
     ),
     "Rosenbrock": dict(
         f=rosenbrock, formula=r"f(x,y) = (1-x)^2 + 100(y-x^2)^2", dominio=(-2, 2, -1, 3),
         minimos=[(1, 1)],
         descricao="Vale estreito e curvo. O Gradient Descent puro anda em zigue-zague.",
+        p0=(-1.2, 1), lr=0.001,
     ),
     "Himmelblau": dict(
         f=himmelblau, formula=r"f(x,y) = (x^2+y-11)^2 + (x+y^2-7)^2", dominio=(-5, 5, -5, 5),
         minimos=[(3, 2), (-2.805118, 3.131312), (-3.779310, -3.283186), (3.584428, -1.848126)],
         descricao="Quatro mínimos. O ponto inicial decide em qual o algoritmo cai.",
+        p0=(-2.5, 2.5), lr=0.01,
     ),
     "Sela": dict(
         f=sela, formula=r"f(x,y) = x^2 - y^2", dominio=(-3, 3, -3, 3),
         minimos=[],
-        descricao="Ponto de sela na origem: gradiente nulo, mas não é mínimo.",
+        descricao="Ponto de sela na origem: gradiente nulo, mas não é mínimo. Com y ≠ 0 o algoritmo foge da sela.",
+        p0=(-1.5, 0), lr=0.05,
     ),
 }
 
