@@ -5,7 +5,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from calculus import descida, gradiente  # noqa: E402
+from calculus import classificar, descida, gradiente, hessiana  # noqa: E402
 from functions import himmelblau, paraboloide, rosenbrock, sela  # noqa: E402
 
 
@@ -29,6 +29,16 @@ def test_motivo_da_parada():
     # na sela, partindo de y = 0, o GD para exatamente no ponto de sela (gradiente nulo, não é mínimo)
     c, motivo = descida(sela, (-1.5, 0), lr=0.05)
     assert motivo == "convergiu" and np.allclose(c[-1], [0, 0], atol=1e-6)
+
+
+def test_hessiana():
+    # H(x² + 3y²) = [[2, 0], [0, 6]] em qualquer ponto
+    assert np.allclose(hessiana(paraboloide, 0.5, -1.0), [2, 0, 6], atol=1e-3)
+    assert classificar(paraboloide, 0, 0) == "mínimo local"
+    assert classificar(lambda x, y: -x**2 - y**2, 0, 0) == "máximo local"
+    assert classificar(sela, 0, 0) == "ponto de sela"
+    assert classificar(lambda x, y: x**4 + y**4, 0, 0) == "inconclusivo (D ≈ 0)"  # mínimo, mas D = 0
+    assert classificar(paraboloide, 1, 1) == "não é ponto crítico (∇f ≠ 0)"
 
 
 if __name__ == "__main__":

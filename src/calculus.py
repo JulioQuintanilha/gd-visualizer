@@ -11,6 +11,29 @@ def gradiente(f, x, y, h=1e-5):
     return np.array([dfdx, dfdy])
 
 
+def hessiana(f, x, y, h=1e-4):
+    """H = [[f_xx, f_xy], [f_xy, f_yy]] por diferenças centrais de 2ª ordem."""
+    fxx = (f(x + h, y) - 2 * f(x, y) + f(x - h, y)) / h**2
+    fyy = (f(x, y + h) - 2 * f(x, y) + f(x, y - h)) / h**2
+    fxy = (f(x + h, y + h) - f(x + h, y - h) - f(x - h, y + h) + f(x - h, y - h)) / (4 * h**2)
+    return fxx, fxy, fyy
+
+
+def classificar(f, x, y, tol_grad=1e-3, tol=1e-6):
+    """Teste da segunda derivada: D = f_xx·f_yy - f_xy²
+    É um teste numérico: só vale perto de um ponto crítico (∇f ≈ 0), por isso o gradiente
+    é conferido antes, e D próximo de zero (|D| ≤ tol) é tratado como inconclusivo."""
+    if np.hypot(*gradiente(f, x, y)) > tol_grad:
+        return "não é ponto crítico (∇f ≠ 0)"
+    fxx, fxy, fyy = hessiana(f, x, y)
+    D = fxx * fyy - fxy**2
+    if D > tol:
+        return "mínimo local" if fxx > 0 else "máximo local"
+    if D < -tol:
+        return "ponto de sela"
+    return "inconclusivo (D ≈ 0)"
+
+
 # ---------------------------------------------------------------------------
 # Otimizadores: recebem f e o ponto inicial, devolvem (trajetória N×2, motivo da parada)
 # ---------------------------------------------------------------------------

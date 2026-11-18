@@ -56,8 +56,28 @@ Com $\beta = 0$ o Momentum vira o Gradient Descent puro, por isso os dois usam a
 * **limite de iterações:** atingiu o máximo escolhido;
 * **divergiu:** $|x|$ ou $|y|$ passou de $10^6$. Sem esse teste, com $x$ muito grande o computador arredonda $x + h$ para $x$, o gradiente numérico dá zero e o algoritmo pareceria ter convergido.
 
+### 4. Matriz Hessiana e classificação de pontos críticos
+Quando o algoritmo para, o ponto final é classificado pelas derivadas de segunda ordem, reunidas na **matriz Hessiana**:
+
+$$H = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{xy} & f_{yy} \end{bmatrix}$$
+
+Cada derivada é calculada por diferenças centrais de segunda ordem, por exemplo:
+
+$$f_{xx} \approx \frac{f(x+h,\,y) - 2f(x,\,y) + f(x-h,\,y)}{h^2}$$
+
+O **teste da segunda derivada** usa o determinante da Hessiana:
+
+$$D = f_{xx}\,f_{yy} - f_{xy}^2$$
+
+* $D > 0$ e $f_{xx} > 0$: mínimo local
+* $D > 0$ e $f_{xx} < 0$: máximo local
+* $D < 0$: ponto de sela
+* $D \approx 0$: o teste não decide (por exemplo, $x^4 + y^4$ tem mínimo na origem, mas lá $D = 0$)
+
+Como as derivadas são aproximadas, a classificação é **numérica**: o código só aplica o teste quando $\|\nabla f\| < 10^{-3}$ e trata $|D| \le 10^{-6}$ como inconclusivo. Gradiente pequeno indica que o ponto está perto de um ponto crítico, mas sozinho não prova que é mínimo. Na função Sela, partindo de $y = 0$, o algoritmo para na origem com gradiente nulo, e o teste mostra $D = -4 < 0$: é um ponto de sela.
+
 ### 🔒 O que é implementado pela equipe
-Derivadas parciais, gradiente e otimizadores estão em `src/calculus.py`, escritos pela equipe. O projeto não usa bibliotecas de otimização (SciPy, PyTorch, TensorFlow). NumPy serve só como estrutura de vetores, e Matplotlib e Streamlit cuidam da visualização.
+Derivadas parciais, gradiente, Hessiana, teste da segunda derivada e otimizadores estão em `src/calculus.py`, escritos pela equipe. O projeto não usa bibliotecas de otimização (SciPy, PyTorch, TensorFlow). NumPy serve só como estrutura de vetores, e Matplotlib e Streamlit cuidam da visualização.
 
 ---
 
@@ -76,7 +96,7 @@ Derivadas parciais, gradiente e otimizadores estão em `src/calculus.py`, escrit
 ```text
 ├── src/
 │   ├── app.py            # Interface interativa (Streamlit) e gráficos
-│   ├── calculus.py       # Núcleo de cálculo: gradiente e otimizadores
+│   ├── calculus.py       # Núcleo de cálculo: gradiente, Hessiana e otimizadores
 │   └── functions.py      # Funções de teste (Paraboloide, Rosenbrock, Himmelblau, Sela)
 ├── tests/
 │   └── test_calculus.py  # Testes automáticos do núcleo matemático
@@ -136,7 +156,7 @@ pytest
 - [x] Núcleo de cálculo: gradiente por diferença central (`src/calculus.py`)
 - [x] Otimizadores: Gradient Descent e Momentum
 - [x] Interface interativa (`src/app.py`)
-- [ ] Matriz Hessiana e classificação de pontos críticos
+- [x] Matriz Hessiana e classificação de pontos críticos
 - [ ] Método de Newton
 - [ ] Otimizador Adam
 - [ ] Modo de comparação entre otimizadores

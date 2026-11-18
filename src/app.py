@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 
-from calculus import OTIMIZADORES, gradiente
+from calculus import OTIMIZADORES, classificar, gradiente
 from functions import FUNCOES
 
 # cor fixa por otimizador: a cor segue o método, nunca muda de posição
@@ -60,8 +60,10 @@ with col2:
     st.metric("Ponto final", f"({c[-1, 0]:.4f}, {c[-1, 1]:.4f})")
     st.metric("f final", f"{f(*c[-1]):.2e}")
     st.metric("‖∇f‖ final", f"{np.hypot(*gradiente(f, *c[-1])):.2e}")
+    st.metric("Classificação (teste numérico da Hessiana)", classificar(f, *c[-1]))
 
 with st.expander("📐 A matemática por trás"):
     st.latex(r"\frac{\partial f}{\partial x} \approx \frac{f(x+h,y)-f(x-h,y)}{2h}")
     st.latex(r"\text{GD: } \mathbf{x}_{k+1} = \mathbf{x}_k - \eta\,\nabla f(\mathbf{x}_k)")
     st.latex(r"\text{Momentum: } \mathbf{v}_{k+1} = \beta\mathbf{v}_k + \nabla f(\mathbf{x}_k),\ \mathbf{x}_{k+1} = \mathbf{x}_k - \eta\,\mathbf{v}_{k+1}")
+    st.latex(r"D = f_{xx}f_{yy} - f_{xy}^2:\ D>0,\ f_{xx}>0 \Rightarrow \text{mínimo};\ D<0 \Rightarrow \text{sela}")
